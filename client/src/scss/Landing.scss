@@ -46,10 +46,14 @@ $box-shadow-inset: rgb(233, 233, 233);
     top: 3%;
     background: linear-gradient(to bottom, $gradient1-color, $gradient2-color);
     box-shadow: 2px 2px 2px 2px $box-shadow, inset 2px 2px 2px 2px $box-shadow-inset;
+    
+    section {
+        height: 100%;
+        width: 100%;
+    }
 }
 
-//components/Landing/welcome.vue
-#welcome {
+#welcome, #signup, #signin {
 
     section {
         margin: auto;
@@ -72,4 +76,12 @@ $box-shadow-inset: rgb(233, 233, 233);
             margin: 1%;
         }
     }
+}
+
+#signup-form, #signin-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+    margin: auto;
 }

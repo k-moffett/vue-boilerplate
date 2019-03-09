@@ -11,9 +11,11 @@
       <section>
         <signup 
           v-if="view === 'signup'" 
+          @welcomeClick="toWelcome"
         />
         <signin 
-          v-else-if="view === 'signin'" 
+          v-else-if="view === 'signin'"
+          @welcomeClick="toWelcome" 
         />
         <welcome 
           v-else 
@@ -44,6 +46,9 @@ export default {
     },
     toSignin() {
       this.view = "signin"
+    },
+    toWelcome() {
+      this.view = "welcome"
     }
   },
 
