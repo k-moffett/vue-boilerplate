@@ -1,0 +1,75 @@
+$gradient1-color: rgb(243, 171, 36);
+$gradient2-color: yellow;
+$box-shadow: rgb(0, 113, 148);
+$box-shadow-inset: rgb(233, 233, 233);
+
+#welcome-wrapper {
+    height:100%;
+    width:100%;
+}
+
+#welcome-title {
+    display: flex;
+    height: 5%;
+    width: 70%;
+    align-self: center;
+    align-content: center;
+    border-radius: 20px;
+    margin: auto;
+    position: relative;
+    top: 3%;
+    background: linear-gradient(to bottom, $gradient1-color, $gradient2-color);
+    box-shadow: 2px 2px 2px 2px $box-shadow, inset 2px 2px 2px 2px $box-shadow-inset;
+
+    section {
+        margin: auto;
+
+        p {
+            text-align: center;
+            font-size: 24px;
+            margin: auto;
+        }
+    }
+}
+
+#welcome-card {
+    display: flex;
+    position: relative;
+    height: 50%;
+    width: 50%;
+    align-self: center;
+    align-content: center;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 5%;
+    position: relative;
+    top: 3%;
+    background: linear-gradient(to bottom, $gradient1-color, $gradient2-color);
+    box-shadow: 2px 2px 2px 2px $box-shadow, inset 2px 2px 2px 2px $box-shadow-inset;
+}
+
+//components/Landing/welcome.vue
+#welcome {
+
+    section {
+        margin: auto;
+        padding: 2%;
+        p {
+            text-align: center;
+            font-size: 24px;
+            margin: auto;
+        }
+    }
+}
+
+.welcome-buttons {
+    
+    section {
+        display: flex;
+        justify-content: center;
+
+        button {
+            margin: 1%;
+        }
+    }
+}
