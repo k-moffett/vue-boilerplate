@@ -1,5 +1,5 @@
 # Vue Boilerplate
-This is a boilerplate for a Vue.js application utilizing Express, Sequalize, and a Postgres database. The frontend is setup within the './client' directory, while the beackend is in the './server' directory.
+This is a fullstack boilerplate for a Vue.js application utilizing Express, Sequalize, and a Postgres database. The frontend is setup within the './client' directory, while the beackend is in the './server' directory.
 <br>
 # Conveniences 
 -The app is built without a CLI, utilizing webpack, in order to reduce unnecessary dependencies.<br>
