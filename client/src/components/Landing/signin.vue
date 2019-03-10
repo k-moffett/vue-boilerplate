@@ -6,10 +6,10 @@
 
         <form id="signin-form">
             Email:<br>
-            <input type="email" /><br>
+            <input v-model="email" type="email" /><br>
             Password:<br>
-            <input type="password"><br>
-            <button type="submit">Sign In</button>
+            <input v-model="password" type="password"><br>
+            <button v-on:click="submitLogin" type="submit">Sign In</button>
         </form>
 
         <section>
@@ -21,12 +21,17 @@
 <script>
 export default {
     name: 'Signin',
-    data () {
-      return {}
-    },
+   data: () => ({
+       email: '',
+       password: ''
+    }),
     methods: {
     backClick() {
         this.$emit("welcomeClick")
+    },
+    submitLogin() {
+        event.preventDefault()
+        this.$router.push('/home')
     }
 }
 }

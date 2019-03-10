@@ -17,9 +17,9 @@
 <script>
 export default {
     name: 'welcome',
-    data () {
-      return {}
-    },
+    data: () => ({
+        temp: ''
+    }),
     methods: {
         signupClick() {
             this.$emit('signupClick')

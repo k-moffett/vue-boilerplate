@@ -7,14 +7,14 @@
 
     <form id="signup-form">
         Email:<br>
-        <input type="email" /><br>
+        <input v-model="email" type="email" /><br>
         Username:<br>
-        <input type="text" /><br>
+        <input v-model="username" type="text" /><br>
         Password:<br>
-        <input type="password"><br>
+        <input v-model="password" type="password"><br>
         Confirm Password:<br>
-        <input type="password"><br>
-        <button type="submit">Join</button>
+        <input v-model="confirmPassword" type="password"><br>
+        <button v-on:click="submitSignin" type="submit">Join</button>
     </form>
 
     <div id="signup-buttons">
@@ -29,12 +29,19 @@
 <script>
 export default {
     name: 'Signup',
-    data () {
-      return {}
-    },
+    data: () => ({
+        email: '',
+        username: '',
+        password: '',
+        confirmPassword: ''
+    }),
     methods: {
         backClick() {
             this.$emit("welcomeClick")
+        },
+        submitSignin() {
+            event.preventDefault()
+            this.$router.push('/home')
         }
     }
 }
