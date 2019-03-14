@@ -8,6 +8,10 @@ This is a fullstack boilerplate for a Vue.js application utilizing Express, Sequ
 -Vue Router has been setup as well using the connect-history-api-fallback package for serving the app via express as well as webpack's history-api-fallback option when using the client's dev environment.<br>
 # Useful info
 -cd into the './client' directory and enter
+```
+yarn install
+```
+and
 
 ```
 yarn run dev
@@ -15,6 +19,11 @@ yarn run dev
 
 into your terminal to enter the local dev environment on port 8080. Hot reloading has been enabled.<br>
 -cd into the './client' directory and enter
+```
+yarn install
+```
+
+and
 
 ```
 yarn run build
