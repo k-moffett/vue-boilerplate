@@ -3,7 +3,7 @@
 
     <div id="welcome-title">
       <section>
-        <p>Welcome to your landing page.</p>
+        <p>Welcome to Battlehost</p>
       </section>
     </div> <!-- welcome-title -->
 
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+const axios = require('axios')
+
 import '../scss/Landing.scss'
 import welcome from '../components/Landing/welcome.vue'
 import signup from '../components/Landing/signup.vue'
@@ -40,6 +42,11 @@ export default {
       view: "welcome"
   }),
 
+  created() {
+    //check for user session
+   this.checkSession()
+  },
+
   methods: {
     toSignup() {
       this.view = "signup"
@@ -49,6 +56,44 @@ export default {
     },
     toWelcome() {
       this.view = "welcome"
+    },
+
+    async checkSession() {
+      let allCookies = document.cookie.split(';')
+      let cookieObject = {}
+    
+      if (allCookies[0] === '') {
+        //check if there are no cookies and exit function
+        return 
+      }
+
+      allCookies.map((cookie)=>{
+          var tempCookie = cookie.split('=')
+          cookieObject[tempCookie[0].trim()] = tempCookie[1].trim()
+      })
+
+      let keys = Object.keys(cookieObject)
+      
+      if(keys.includes('sessid')) {
+          await axios.post('/sess_redir', {
+                data: {
+                    method: 'landing',
+                    sessid: cookieObject.sessid
+                }
+                })
+                .then((response) => {
+                  if (response.data.success) {
+                    console.log(response)
+                    this.$router.push({name: 'Home'})
+                  } else 
+                  if (response.data.error) {
+                    //can logg errors here
+                    console.log(response.data.error)
+                  }
+          
+                })
+                .catch((error) => console.log(error))
+      } 
     }
   },
 

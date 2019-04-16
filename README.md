@@ -3,37 +3,22 @@ This is a fullstack boilerplate for a Vue.js application utilizing Express, Sequ
 <br>
 # Conveniences 
 -The app is built without a CLI, utilizing webpack, in order to reduce unnecessary dependencies.<br>
--A very simple sign up/in form has been implemented for user registration.<br>
--Scss files are supported through webpack and store in their own './scss' directory under the './src' directory.<br>
+-A very simple sign up/in form with frontend and backend validation has been implemented for user registration.<br>
+-Scss modules are supported through webpack and store in their own './scss' directory under the './src' directory.<br>
 -Vue Router has been setup as well using the connect-history-api-fallback package for serving the app via express as well as webpack's history-api-fallback option when using the client's dev environment.<br>
-# Useful info
--cd into the './client' directory and enter
+-A proxy has been setup to allow you to run your client and server at the same time to allow easy API call testing. Hot-reloading has been enabled through the use of webpack for your client and the npm package pm2 for your server. You will not need to create any new builds or restart your server manually, just simply save any files.
+# Starting the hot-reloading proxy
+-cd into the client and server directories and 
 ```
 yarn install
 ```
-and
 
+-Now cd in the root of the project and 
 ```
 yarn run dev
 ```
-
-into your terminal to enter the local dev environment on port 8080. Hot reloading has been enabled.<br>
--cd into the './client' directory and enter
-```
-yarn install
-```
-
-and
-
-```
-yarn run build
-```
-
-to create the build file that will be served on the express server. This will create your build folder under the server directory, so you will not need to move any files to serve your build through express. This shoud also make it easy to move all files under the './server' directory to something such as a EC2 instance and have it ready to go; as long as you ahve set your EC2 up correctly.<br>
--cd into the server directory and enter
-
-```
-yarn run start
-```
-
-to start the express server and run your app on port 8080.
+<br>
+-Now your Vue dev server will start in tandem with your express server and all requests will be rerouted back to the root of your dev environment, allowing you to test calls to your API. 
+<br>
+#Important
+-You will need to ensure that your .env variables for your DB have been setup corerctly for this boilerplate to work, which means you will also need a local instance of Postgres running when you start this app. If you are not interested in this, simply remove the db directory and use the second app.listen function in server.js rather than the one directly above it. You can then go into the src directory and remove everything but App.js and Router.js. Now you will be able to start fresh with all of the conveniences still available, but without the bloat of a CLI installation.

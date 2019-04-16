@@ -1,7 +1,7 @@
 <template>
     <div id="signup">
 
-        <section>
+        <section class="title">
             <p>Sign Up</p>
         </section>
 
@@ -12,60 +12,94 @@
             v-model="email"
             @input="validateEmail" 
         />
-            <div v-show="invalidEmail">
-                <section id="invalid-email">
-                    <p>Invalid email address.</p>
-                </section>
-            </div>
+
         Username:
         <input 
             type="text" 
             @input="validateUsername"
             v-model.trim="username" 
         />
-            <div v-show="invalidUsername">
-                <section id="invalid-username">
-                    <p>{{invalidUsernameErr}}</p>
-                </section>
-            </div>
+
         Password:
         <input 
             type="password"
             @input="validatePassword"
             v-model.trim="password"  
-        />
-            <div v-show="invalidPassword">
-                <section id="invalid-password">
-                    <p>Passwords must contain:</p>
-                    <ul>
-                        <li v-show="passLengthErr">Between 6 and 16 characters total characters.</li>
-                        <li v-show="passLowerErr">One lower case letter.</li>
-                        <li v-show="passUpperErr">One upper case letter.</li>
-                        <li v-show="passNumberErr">One number.</li>
-                        <li v-show="passSpecialErr">One special character</li>
-                    </ul>
-                </section>
-            </div>
+        />  
+
         Confirm Password:
         <input 
             type="password"
             @input="validatePassword2"
             v-model="password2" 
         />
-            <div v-show="invalidPassword2">
-                <section id="unconfirmed-password">
-                    <p>Passwords must match.</p>
-                </section>
-            </div>
-        <button
-            type="submit" 
-            :disabled="invalidForm"
-            v-on:click="submitSignin">
-            Join
-        </button>
-    </form>
 
-    <div id="signup-buttons">
+        <div id="signup-submit">   
+            <section>
+                <button
+                    type="submit" 
+                    :disabled="invalidForm"
+                    v-on:click="submitSignin">
+                    Join
+                </button>
+            </section>
+        </div>
+    </form>
+        <div id="validation-errors">
+            <section>
+                <transition name="fade">
+                    <div id="invalid-email"  v-show="invalidEmail">
+                            - Invalid email address.
+                    </div>
+                </transition>
+
+                <transition name="fade">
+                    <div id="invalid-username" v-show="invalidUsername">
+                            - {{invalidUsernameErr}}
+                    </div>
+                </transition>
+
+                <transition name="fade">
+                    <div id="unconfirmed-password" v-show="invalidPassword2">
+                            - Passwords must match.
+                    </div>
+                </transition>
+
+                <transition name="fade">
+                    <div id="invalid-password" v-show="invalidPassword">
+                            - Passwords must contain:
+                            <ul>
+                                <transition name="fade"><li v-show="passLengthErr">Between 6 and 16 characters total characters.</li></transition>
+                                <transition name="fade"><li v-show="passLowerErr">One lower case letter.</li></transition>
+                                <transition name="fade"><li v-show="passUpperErr">One upper case letter.</li></transition>
+                                <transition name="fade"><li v-show="passNumberErr">One number.</li></transition>
+                                <transition name="fade"><li v-show="passSpecialErr">One special character</li></transition>
+                            </ul>
+                    </div>
+                </transition>
+
+                <transition name="fade">
+                    <div id="unconfirmed-password" v-show="emailInUse">
+                            - It looks like there's already an account using this email address.
+                    </div>
+                </transition>
+
+                <transition name="fade">
+                    <div id="unconfirmed-password" v-show="usernameInUse">
+                            - It looks like another user has claimed this username already.
+                    </div>
+                </transition>
+
+                <transition name="fade">
+                    <div id="serverValidationError" v-show="serverValidationError">
+                            - It looks like there has been a mistake when filling out this form. You may want to reload the page and try again.
+                    </div>
+                </transition>
+
+            </section>
+        </div>
+
+    <div class="back-btns">
         <section>
             <button 
                 @click="backClick">
@@ -78,6 +112,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: 'Signup',
     data: () => ({
@@ -90,13 +126,16 @@ export default {
         invalidPassword: '',
         invalidPassword2: '',
         invalidUsernameErr: '',
+        emailInUse: '',
+        usernameInUse: '',
         emailErr: false,
         passLengthErr: false,
         passLowerErr: false,
         passUpperErr: false,
         passNumberErr: false,
         passSpecialErr: false,
-        invalidForm: true
+        invalidForm: true,
+        serverValidationError: false
 
     }),
     methods: {
@@ -105,7 +144,39 @@ export default {
         },
         submitSignin() {
             event.preventDefault()
-            // this.$router.push('/home')
+            this.emailInUse = false
+            this.usernameInUse = false
+            this.serverValidationError = false
+            axios.post('/signup', {
+                data: {
+                    email: this.email,
+                    username: this.username,
+                    password: this.password
+                }
+            })
+            .then((response) => {
+                console.log(response.data.error)
+                if (response.data.error === 'email in use') {
+                    this.emailInUse = true
+                } else if (response.data != 'email in use') {
+                    this.emailInUse = false
+                } 
+                if (response.data.error === 'username in use') {
+                    this.usernameInUse = true
+                } else if (response.data != 'username in use') {
+                    this.usernameInUse = false
+                }
+                if (response.data.error === 'invalid email' || response.data.error === 'password less than 4 characters' || response.data.error === 'password greater than 16 characters' || response.data.error === 'incorrect password format') {
+                    console.log('server validation')
+                    this.serverValidationError = true
+                }
+                if (response.data.success) {
+                    this.$router.push('/home')
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
         },
         validateEmail() {
             const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/

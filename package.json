@@ -1,0 +1,12 @@
+{
+  "name": "vue-boilerplate",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/moffkr91/vue-boilerplate.git",
+  "author": "kmoffett <moffkr91@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "pm2 start ./server/server.js  --watch --name server && cd client && yarn run dev"
+  }
+}
+

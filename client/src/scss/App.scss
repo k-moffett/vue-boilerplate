@@ -10,5 +10,12 @@ body {
     height: 100%;
     width: 100%;
     background: linear-gradient(to bottom, $gradient1-color, $gradient2-color);
+    font-family: "Lucida Console", Monaco, monospace; 
+    margin: 0px
 }
 
+button {
+	background: none;
+	border: none;
+	outline: none;
+}

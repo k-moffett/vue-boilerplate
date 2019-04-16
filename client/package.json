@@ -4,11 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.config.js --open --history-api-fallback",
+    "dev": "webpack-dev-server --config webpack.config.js --open",
     "build": "webpack --config webpack.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
+    "@babel/plugin-transform-runtime": "^7.4.3",
     "@babel/preset-env": "^7.3.4",
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.0",
@@ -23,7 +24,12 @@
     "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.3",
+    "@babel/runtime": "^7.4.3",
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
     "vue": "^2.6.8",
-    "vue-router": "^3.0.2"
+    "vue-router": "^3.0.2",
+    "vuex": "^3.1.0"
   }
 }

@@ -1,0 +1,14 @@
+$welcome-signin-singup-btn: rgb(3, 121, 218);
+$box-shadow: rgb(0, 113, 148);
+$box-shadow-inset: rgb(233, 233, 233);
+
+#create-unit-wrapper {
+    margin: 5%;
+}
+
+#add-ability-btn {
+    border-radius: 5px;
+    background-color: $welcome-signin-singup-btn;
+    box-shadow: .5px .5px 0px 2px $box-shadow, inset 2px 2px 2px 2px $box-shadow-inset;
+}
+
