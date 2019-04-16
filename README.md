@@ -20,5 +20,5 @@ yarn run dev
 <br>
 -Now your Vue dev server will start in tandem with your express server and all requests will be rerouted back to the root of your dev environment, allowing you to test calls to your API. 
 <br>
-#Important
+# Important
 -You will need to ensure that your .env variables for your DB have been setup corerctly for this boilerplate to work, which means you will also need a local instance of Postgres running when you start this app. If you are not interested in this, simply remove the db directory and use the second app.listen function in server.js rather than the one directly above it. You can then go into the src directory and remove everything but App.js and Router.js. Now you will be able to start fresh with all of the conveniences still available, but without the bloat of a CLI installation.
